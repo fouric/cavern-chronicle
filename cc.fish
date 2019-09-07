@@ -21,7 +21,7 @@ function cc
         case repo
             firefox "https://github.com/fouric/cavern-chronicle"
         case video
-            nohup mpv $HOME/ramdisk/Episode\ 1* 2>&1 >/dev/null &; disown
+            nohup mpv $HOME/ramdisk/Episode\ $argv[2]* 2>&1 >/dev/null &; disown
         case '*'
             echo "error: unrecognized option: " $argv[1] 1>&2
             cc help

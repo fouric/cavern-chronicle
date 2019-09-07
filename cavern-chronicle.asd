@@ -17,4 +17,5 @@
   :depends-on (:sdl2 :fouric)
   :pathname "src"
   :components ((:file "package")
+               (:file "graphics")
                (:file "cavern-chronicle")))
