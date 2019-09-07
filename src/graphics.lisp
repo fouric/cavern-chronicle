@@ -5,11 +5,15 @@
 (defparameter +bits-per-pixel+ 32)
 
 (defclass graphics ()
-  ((screen :accessor screen :initarg :screen)))
+  ((screen :accessor screen :initarg :screen)
+   (renderer :accessor renderer :initarg :renderer)))
 
-(defun make-graphics ()
-  (make-instance 'graphics :screen (sdl2:create-rgb-surface +screen-width+ +screen-height+ +bits-per-pixel+)))
+(defun make-graphics (renderer)
+  (make-instance 'graphics :screen (sdl2:create-rgb-surface +screen-width+ +screen-height+ +bits-per-pixel+)
+                           :renderer renderer))
 
 (defun graphics-destroy (graphics)
-  (declare (ignore graphics))
-  )
+  (sdl2:free-surface (screen graphics)))
+
+(defun blit-surface (graphics surface source dest)
+  (sdl2:blit-surface surface source (screen graphics) dest))

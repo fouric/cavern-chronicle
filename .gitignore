@@ -10,4 +10,4 @@
 *.elf
 
 # copyright issues - just know that the correct file has the hash f5f9d02f5af1714d9f23d46e9723a51c and a size of 112940 bytes
-assets/character-sprites.png
+assets/*

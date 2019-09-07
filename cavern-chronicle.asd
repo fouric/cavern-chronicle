@@ -14,8 +14,9 @@
   :description "reimplementation of \"reconstructing cave story\" in common lisp"
 
   :serial t
-  :depends-on (:sdl2 :fouric)
+  :depends-on (:sdl2 :sdl2-image :fouric)
   :pathname "src"
   :components ((:file "package")
                (:file "graphics")
+               (:file "sprite")
                (:file "cavern-chronicle")))
