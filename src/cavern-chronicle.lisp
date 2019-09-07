@@ -5,7 +5,8 @@
    (sprite :accessor sprite :initarg :sprite)))
 
 (defun make-game (renderer)
-  (make-instance 'game :graphics (make-graphics renderer) :sprite (make-sprite (f:resource "assets/sprites.png" 'cavern-chronicle) 0 0 32 32)))
+  (let ((graphics (make-graphics renderer)))
+    (make-instance 'game :graphics graphics :sprite (make-sprite graphics (f:resource "assets/sprites.png" 'cavern-chronicle) 0 0 32 32))))
 
 (defmethod draw (self graphics x y)
   )
@@ -29,7 +30,6 @@
     (:idle ()
            (update game)
            (draw game (graphics game) 0 0)
-           (sleep 0.1)
            (let ((elapsed-time (- (sdl2:get-ticks) start-time)))
              (declare (ignore elapsed-time))
              #++(f:out elapsed-time))
@@ -44,8 +44,8 @@
 
 (defmethod draw ((game game) graphics x y)
   (declare (ignore x y))
-  (draw (sprite game) (graphics game) 320 240)
   (let ((renderer (renderer graphics)))
     (sdl2:set-render-draw-color renderer 40 40 40 255)
     (sdl2:render-clear renderer)
+    (draw (sprite game) (graphics game) 0 0)
     (sdl2:render-present renderer)))

@@ -15,5 +15,5 @@
 (defun graphics-destroy (graphics)
   (sdl2:free-surface (screen graphics)))
 
-(defun blit-surface (graphics surface source dest)
-  (sdl2:blit-surface surface source (screen graphics) dest))
+#++(defun blit-surface (graphics surface source dest)
+  (sdl2:render-copy (renderer graphics) source (screen graphics) dest))
