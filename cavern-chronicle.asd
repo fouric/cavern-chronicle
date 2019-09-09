@@ -16,7 +16,9 @@
   :serial t
   :depends-on (:sdl2 :sdl2-image :fouric)
   :pathname "src"
-  :components ((:file "package")
+  :components ((:file "game")
+               (:file "package")
                (:file "graphics")
                (:file "sprite")
+               (:file "animated-sprite")
                (:file "cavern-chronicle")))

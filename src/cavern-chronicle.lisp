@@ -1,26 +1,16 @@
 (in-package :cavern-chronicle)
 
-(defclass game ()
-  ((graphics :accessor graphics :initarg :graphics)
-   (sprite :accessor sprite :initarg :sprite)))
-
-(defun make-game (renderer)
-  (let ((graphics (make-graphics renderer)))
-    (make-instance 'game :graphics graphics :sprite (make-sprite graphics (f:resource "assets/sprites.png" 'cavern-chronicle) 0 0 32 32))))
-
-(defmethod draw (self graphics x y)
-  )
-
 (defun boring-entrypoint ()
   (let ((start-time (sdl2:get-ticks)))
     (sdl2:with-init (:everything)
       (sdl2:hide-cursor)
       (f:with-ttf-init
-        (sdl2:with-window (window :w +screen-width+ :h +screen-height+ :flags '(:shown))
+        (sdl2:with-window (window :w +screen-width+ :h +screen-height+ :flags '(:shown)) ; could add :fullscreen here
           (sdl2:with-renderer (renderer window :flags '(:accelerated :presentvsync))
             (event-loop (make-game renderer) start-time)))))))
 
 (defun event-loop (game start-time)
+  ;; TODO: rewrite from iterative loop to recursive function so we can hotpatch
   (sdl2:with-event-loop (:method :poll)
     (:keydown (:keysym keysym)
               (print keysym))
@@ -38,14 +28,3 @@
     (:quit ()
            (graphics-destroy (graphics game))
            t)))
-
-(defun update (game)
-  (declare (ignore game)))
-
-(defmethod draw ((game game) graphics x y)
-  (declare (ignore x y))
-  (let ((renderer (renderer graphics)))
-    (sdl2:set-render-draw-color renderer 40 40 40 255)
-    (sdl2:render-clear renderer)
-    (draw (sprite game) (graphics game) 0 0)
-    (sdl2:render-present renderer)))

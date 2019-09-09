@@ -18,10 +18,13 @@ function cc
             echo "    help: display help/usage"
             echo "    repo"
             echo "    video"
+            echo "    source"
         case repo
             firefox "https://github.com/fouric/cavern-chronicle"
         case video
             nohup mpv $HOME/ramdisk/Episode\ $argv[2]* 2>&1 >/dev/null &; disown
+        case source
+            e src/cavern-chronicle.lisp
         case '*'
             echo "error: unrecognized option: " $argv[1] 1>&2
             cc help
